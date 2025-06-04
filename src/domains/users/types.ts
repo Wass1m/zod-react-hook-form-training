@@ -56,17 +56,39 @@ export const UserSchema = () =>
       id: z.string().nullish(),
 
       // firstName : minimum 3 caractères, non null, avec refine pour vérifier non null
+      firstName: z
+        .string()
+        .min(3, "Minimum 3 caractères")
+        .refine((val) => val !== null, {
+          message: "Ce champ est obligatoire",
+        }),
 
       // lastName : minimum 3 caractères, non null à valider dans le string object
+      lastName: z
+        .string({
+          required_error: "Ce champ est obligatoire",
+        })
+        .min(3, "Minimum 3 caractères"),
 
       // fullName : string nullable
+      fullName: z.string().nullable(),
 
       // email : format email valide, non null
+      email: z
+        .string()
+        .email("Adresse email invalide")
+
+        .refine((val) => val !== null, {
+          message: "Ce champ est obligatoire",
+        }),
 
       // 🟢 Étape 3 – Champs liés au mot de passe
       // - isPasswordEditable : booléen optionnel
       // - password : string nullable
       // - passwordCopy : string nullable
+      isPasswordEditable: z.boolean().optional(),
+      password: z.string().nullable(),
+      passwordCopy: z.string().nullable(),
     })
 
     // 🔵 Étape 4 – Validation conditionnelle avec superRefine
@@ -74,8 +96,41 @@ export const UserSchema = () =>
     //   - password est requis
     //   - password doit faire minimum 3 caractères
     //   - password doit être égal à passwordCopy
-    .superRefine((val, ctx) => {});
+    .superRefine((val, ctx) => {
+      if (val.isPasswordEditable) {
+      }
+
+      if (!val.password) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Ce champ est obligatoire",
+          path: ["password"],
+        });
+      } else if (val.password.length < 3) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          minimum: 3,
+          type: "string",
+          inclusive: true,
+          message: "Minimum 3 caractères",
+          path: ["password"],
+        });
+      }
+      if (val.password !== val.passwordCopy) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Les mots de passe ne sont pas identiques",
+          path: ["passwordCopy"],
+        });
+      }
+    });
 
 // 🟣 Étape 5 – Export des types
 // - Exporter le type User depuis le schéma
 // - Définir un type AuthUser qui hérite de User avec une propriété defaultCultureKey facultative
+
+export type User = z.infer<ReturnType<typeof UserSchema>>;
+
+export type AuthUser = User & {
+  defaultCultureKey?: "fr";
+};
