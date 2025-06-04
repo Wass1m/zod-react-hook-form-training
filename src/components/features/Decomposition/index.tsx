@@ -8,7 +8,7 @@ import ControlledTextField from "../../ui/forms/ControlledTextField";
 import FormSubmitButton from "../../ui/forms/FormSubmitButton";
 import useDecompositionForm from "./form";
 
-function DecompositionForm({ userId = null }) {
+function DecompositionForm({ userId = "134" }) {
   const { form, onSubmit } = useDecompositionForm(userId);
   const isPasswordEditable = useWatch({
     control: form.control,

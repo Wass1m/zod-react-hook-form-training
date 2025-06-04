@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { SUCCESS, useSnackbar } from "../../../contexts/SnackbarContext";
 
-function useYupForm(userId = null) {
+function useDecompositionForm(userId: string | null = null) {
   const { t } = useTranslation();
   const { popSnackbar } = useSnackbar();
 
@@ -77,4 +77,4 @@ function useYupForm(userId = null) {
   };
 }
 
-export default useYupForm;
+export default useDecompositionForm;
