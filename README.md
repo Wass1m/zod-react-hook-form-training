@@ -19,7 +19,7 @@ Avant de commencer, assurez-vous d’avoir :
 ### 1. Installer pnpm avec Chocolatey
 
 ```bash
-choco install pnpm
+sudo choco install pnpm
 ```
 
 ou
