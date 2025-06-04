@@ -23,11 +23,9 @@ isPasswordEditable: isEmpty(userId),
 fullName: "",
 };
 
-const schema = UserSchema();
-
 const form = useForm<User>({
 defaultValues,
-resolver: zodResolver(schema),
+resolver: zodResolver(UserSchema),
 });
 
 const onSubmit = async (values: any) => {

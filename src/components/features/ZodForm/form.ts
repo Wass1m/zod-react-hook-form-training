@@ -16,18 +16,16 @@ function useZodForm(userId: string | null = null) {
     id: null,
     password: "",
     passwordCopy: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: "ask",
+    lastName: "ftel",
+    email: "ask@ftel.fr",
     isPasswordEditable: isEmpty(userId),
     fullName: "",
   };
 
-  const schema = UserSchema();
-
   const form = useForm<User>({
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(UserSchema),
   });
 
   const onSubmit = async (values: any) => {
