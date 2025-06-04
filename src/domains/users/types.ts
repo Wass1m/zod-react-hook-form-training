@@ -50,31 +50,30 @@ import { z } from "zod";
 // - fullName : string nullable
 // - email : string, email valide, obligatoire (non null)
 
-export const UserSchema = () =>
-  z
-    .object({
-      id: z.string().nullish(),
+export const UserSchema = z
+  .object({
+    id: z.string().nullish(), // valeur ,undefined (etre ommis), null
 
-      // firstName : minimum 3 caractères, non null, avec refine pour vérifier non null
+    // firstName : minimum 3 caractères, non null, avec refine pour vérifier non null
 
-      // lastName : minimum 3 caractères, non null à valider dans le string object
+    // lastName : minimum 3 caractères, non null à valider dans le string object
 
-      // fullName : string nullable
+    // fullName : string nullable
 
-      // email : format email valide, non null
+    // email : format email valide, non null
 
-      // 🟢 Étape 3 – Champs liés au mot de passe
-      // - isPasswordEditable : booléen optionnel
-      // - password : string nullable
-      // - passwordCopy : string nullable
-    })
+    // 🟢 Étape 3 – Champs liés au mot de passe
+    // - isPasswordEditable : booléen optionnel
+    // - password : string nullable
+    // - passwordCopy : string nullable
+  })
 
-    // 🔵 Étape 4 – Validation conditionnelle avec superRefine
-    // - Si isPasswordEditable est true :
-    //   - password est requis
-    //   - password doit faire minimum 3 caractères
-    //   - password doit être égal à passwordCopy
-    .superRefine((val, ctx) => {});
+  // 🔵 Étape 4 – Validation conditionnelle avec superRefine
+  // - Si isPasswordEditable est true :
+  //   - password est requis
+  //   - password doit faire minimum 3 caractères
+  //   - password doit être égal à passwordCopy
+  .superRefine((val, ctx) => {});
 
 // 🟣 Étape 5 – Export des types
 // - Exporter le type User depuis le schéma

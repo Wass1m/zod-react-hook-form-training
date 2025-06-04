@@ -12,20 +12,16 @@ function useYupForm(userId = null) {
   const isCreation = isEmpty(userId);
 
   const defaultValues = {
-    role: null,
     password: "",
     passwordCopy: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: "ask",
+    lastName: "ftel",
+    email: "ask@ftel.fr",
     isPasswordEditable: isEmpty(userId),
   };
 
   const validationSchema = Yup.object().shape({
     isPasswordEditable: Yup.boolean(),
-    role: Yup.object({ id: Yup.string().required(), name: Yup.string() })
-      .nullable()
-      .required("Champ obligatoire"),
     password: Yup.string().when("isPasswordEditable", {
       is: true,
       then: (schema) =>
@@ -60,6 +56,7 @@ function useYupForm(userId = null) {
   });
 
   const onSubmit = async (values: any) => {
+    console.log("weeeee");
     try {
       if (isCreation) {
         popSnackbar(t("user-create-success"), SUCCESS);

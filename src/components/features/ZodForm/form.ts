@@ -15,19 +15,20 @@ function useZodForm(userId: string | null = null) {
     role: null,
     password: "",
     passwordCopy: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: "ask",
+    lastName: "ftel",
+    email: "ask@ftel.fr",
     isPasswordEditable: isEmpty(userId),
   };
 
   // TODO : Enlever le schema Yup
   const validationSchema = Yup.object().shape({
     isPasswordEditable: Yup.boolean(),
+
     password: Yup.string().when("isPasswordEditable", {
       is: true,
       then: (schema) =>
-        schema.min(3, t("min-3-char")).required(t("required-field")),
+        schema.min(3, "Minimum 3 caractères").required("Champ obligatoire"),
       otherwise: (schema) => schema.nullable(),
     }),
     passwordCopy: Yup.string()
@@ -37,17 +38,19 @@ function useZodForm(userId: string | null = null) {
         then: (schema) =>
           schema.oneOf(
             [Yup.ref("password"), null],
-            t("password-not-identical")
+            "Les mots de passe ne sont pas identiques"
           ),
         otherwise: (schema) => schema.nullable(),
       }),
     firstName: Yup.string()
-      .min(3, t("min-3-char"))
-      .required(t("required-field")),
+      .min(3, "Minimum 3 caractères")
+      .required("Champ obligatoire"),
     lastName: Yup.string()
-      .min(3, t("min-3-char"))
-      .required(t("required-field")),
-    email: Yup.string().email(t("invalid-email")).required(t("required-field")),
+      .min(3, "Minimum 3 caractères")
+      .required("Champ obligatoire"),
+    email: Yup.string()
+      .email("Adresse email invalide")
+      .required("Champ obligatoire"),
   });
 
   // TODO: Rempalcer le yup resolver avec le zod resolver avec le schema Zod, le any par votre User
