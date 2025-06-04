@@ -22,6 +22,12 @@ Avant de commencer, assurez-vous d’avoir :
 choco install pnpm
 ```
 
+ou
+
+```bash
+npm install -g  pnpm
+```
+
 ### 2. Installer les dépendances
 
 ```bash

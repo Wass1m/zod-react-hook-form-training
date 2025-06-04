@@ -1,23 +1,21 @@
 import { Grid } from "@mui/material";
 import isEmpty from "lodash/isEmpty";
 import { FormProvider, useWatch } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
-import useYupForm from "./form";
-import ControlledTextField from "../../ui/forms/ControlledTextField";
-import ControlledCheckbox from "../../ui/forms/ControlledCheckbox";
-import FormSubmitButton from "../../ui/forms/FormSubmitButton";
 import AnimatedOverlay from "../../ui/Animated";
+import ControlledCheckbox from "../../ui/forms/ControlledCheckbox";
+import ControlledTextField from "../../ui/forms/ControlledTextField";
+import FormSubmitButton from "../../ui/forms/FormSubmitButton";
+import useZodForm from "./form";
 
-function ZodForm({ userId = null }) {
-  const { form, onSubmit } = useYupForm(userId);
+function ZodForm({ userId = "0132156" }) {
+  const { form, onSubmit } = useZodForm(userId);
   const isPasswordEditable = useWatch({
     control: form.control,
     name: "isPasswordEditable",
   });
   const { handleSubmit } = form;
   const isCreation = isEmpty(userId);
-  const { t } = useTranslation();
 
   return (
     <AnimatedOverlay>
@@ -29,21 +27,13 @@ function ZodForm({ userId = null }) {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Grid size={{ xs: 12 }}>
-            <ControlledTextField name="email" label={t("email")} fullWidth />
+            <ControlledTextField name="email" label="Email" fullWidth />
           </Grid>
           <Grid size={{ xs: 12, md: 6 }}>
-            <ControlledTextField
-              name="firstName"
-              label={t("firstname")}
-              fullWidth
-            />
+            <ControlledTextField name="firstName" label="Prénom" fullWidth />
           </Grid>
           <Grid size={{ xs: 12, md: 6 }}>
-            <ControlledTextField
-              name="lastName"
-              label={t("lastname")}
-              fullWidth
-            />
+            <ControlledTextField name="lastName" label="Nom" fullWidth />
           </Grid>
 
           {isCreation ? (
@@ -52,7 +42,7 @@ function ZodForm({ userId = null }) {
                 <ControlledTextField
                   name="password"
                   type="password"
-                  label={t("password")}
+                  label="Mot de passe"
                   fullWidth
                 />
               </Grid>
@@ -60,7 +50,7 @@ function ZodForm({ userId = null }) {
                 <ControlledTextField
                   name="passwordCopy"
                   type="password"
-                  label={t("password-confirmation")}
+                  label="Confirmation du mot de passe"
                   fullWidth
                 />
               </Grid>
@@ -70,7 +60,7 @@ function ZodForm({ userId = null }) {
               <Grid size={{ xs: 12 }}>
                 <ControlledCheckbox
                   name="isPasswordEditable"
-                  label={t("edit-password")}
+                  label="Modifier le mot de passe"
                 />
               </Grid>
               {isPasswordEditable && (
@@ -79,7 +69,7 @@ function ZodForm({ userId = null }) {
                     <ControlledTextField
                       name="password"
                       type="password"
-                      label={t("password")}
+                      label="Mot de passe"
                       fullWidth
                     />
                   </Grid>
@@ -87,7 +77,7 @@ function ZodForm({ userId = null }) {
                     <ControlledTextField
                       name="passwordCopy"
                       type="password"
-                      label={t("password-confirmation")}
+                      label="Confirmation du mot de passe"
                       fullWidth
                     />
                   </Grid>
@@ -98,7 +88,7 @@ function ZodForm({ userId = null }) {
           <Grid size={{ xs: 12 }} sx={{ textAlign: "center" }}>
             <FormSubmitButton
               id="ftsl-submit-button"
-              label={isCreation ? t("create") : t("save")}
+              label={isCreation ? "Créer" : "Enregistrer"}
             />
           </Grid>
         </Grid>

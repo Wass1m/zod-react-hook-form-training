@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { SUCCESS, useSnackbar } from "../../../contexts/SnackbarContext";
 
-function useZodForm(userId = null) {
+function useZodForm(userId: string | null = null) {
   const { t } = useTranslation();
   const { popSnackbar } = useSnackbar();
 
@@ -21,12 +21,9 @@ function useZodForm(userId = null) {
     isPasswordEditable: isEmpty(userId),
   };
 
-  // TODO : Remove the yup schema
+  // TODO : Enlever le schema Yup
   const validationSchema = Yup.object().shape({
     isPasswordEditable: Yup.boolean(),
-    role: Yup.object({ id: Yup.string().required(), name: Yup.string() })
-      .nullable()
-      .required(t("required-field")),
     password: Yup.string().when("isPasswordEditable", {
       is: true,
       then: (schema) =>
@@ -53,6 +50,7 @@ function useZodForm(userId = null) {
     email: Yup.string().email(t("invalid-email")).required(t("required-field")),
   });
 
+  // TODO: Rempalcer le yup resolver avec le zod resolver avec le schema Zod, le any par votre User
   const form = useForm<any>({
     defaultValues,
     resolver: yupResolver(validationSchema),
