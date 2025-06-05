@@ -51,6 +51,9 @@ import { z } from "zod";
 // - lastName : string, min 3 caractères, obligatoire (non null)
 // - fullName : string nullable
 // - email : string, email valide, obligatoire (non null)
+// - isPasswordEditable : booléen optionnel
+// - password : string nullable
+// - passwordCopy : string nullable
 
 export const UserSchema = z
   .object({
@@ -64,13 +67,14 @@ export const UserSchema = z
 
     // email : format email valide, non null
 
-    // 🟢 Étape 3 – Champs liés au mot de passe
     // - isPasswordEditable : booléen optionnel
+
     // - password : string nullable
+
     // - passwordCopy : string nullable
   })
 
-  // 🔵 Étape 4 – Validation conditionnelle avec superRefine
+  // 🔵 Étape 3 – Validation conditionnelle avec superRefine
   // - Si isPasswordEditable est true :
   //   - password est requis
   //   - password doit faire minimum 3 caractères
@@ -91,8 +95,8 @@ export const UserSchema = z
 
   .superRefine((val, ctx) => {});
 
-// 🟣 Étape 5 – Export des types
-// - Exporter le type User depuis le schéma (hint : documenation => Defining schemas => objects) // https://zod.dev/api#objects
+// 🟣 Étape 4 – Export des types
+// - Exporter (infer) le type User depuis le schéma (hint : documenation => Defining schemas => objects) // https://zod.dev/api#objects
 
 // - Définir un type AuthUser qui hérite de User avec une propriété defaultCultureKey facultative
 // doc : https://www.typescripttutorial.net/typescript-tutorial/typescript-intersection-types/
