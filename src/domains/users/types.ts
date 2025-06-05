@@ -97,30 +97,29 @@ export const UserSchema = z
   //   - password doit être égal à passwordCopy
   .superRefine((val, ctx) => {
     if (val.isPasswordEditable) {
-    }
-
-    if (!val.password) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Ce champ est obligatoire",
-        path: ["password"],
-      });
-    } else if (val.password.length < 3) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.too_small,
-        minimum: 3,
-        type: "string",
-        inclusive: true,
-        message: "Minimum 3 caractères",
-        path: ["password"],
-      });
-    }
-    if (val.password !== val.passwordCopy) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Les mots de passe ne sont pas identiques",
-        path: ["passwordCopy"],
-      });
+      if (!val.password) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Ce champ est obligatoire",
+          path: ["password"],
+        });
+      } else if (val.password.length < 3) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_small,
+          minimum: 3,
+          type: "string",
+          inclusive: true,
+          message: "Minimum 3 caractères",
+          path: ["password"],
+        });
+      }
+      if (val.password !== val.passwordCopy) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Les mots de passe ne sont pas identiques",
+          path: ["passwordCopy"],
+        });
+      }
     }
   });
 
