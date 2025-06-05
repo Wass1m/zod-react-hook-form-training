@@ -3,15 +3,9 @@
 // Objectif : créer un schéma Zod `UserSchema` avec champs obligatoires, validations conditionnelles,
 // et messages d’erreurs personnalisés en français.
 
-// 📦 Prérequis : assurez-vous que Zod est installé dans le projet
-// npm install zod
+// Documentation utile :
 
-// ✅ TODO - Étapes à suivre :
-
-// 🟠 Étape 1 – Préparation
-// - Créer un fichier userSchema.ts
-// - Importer `z` depuis "zod"
-import { z } from "zod";
+// https://zod.dev/api#objects
 
 // ✅ ZOD - refine()
 // -------------------------------------------------
@@ -42,6 +36,14 @@ import { z } from "zod";
 // }
 // })
 
+// ✅ TODO - Étapes à suivre :
+
+// 🟠 Étape 1 – Préparation
+// - Créer un fichier userSchema.ts
+// - Importer `z` depuis "zod"
+
+import { z } from "zod";
+
 // 🟡 Étape 2 – Champs de base
 // - Définir un objet Zod avec :
 // - id : string nullable
@@ -52,7 +54,7 @@ import { z } from "zod";
 
 export const UserSchema = z
   .object({
-    id: z.string().nullish(), // valeur ,undefined (etre ommis), null
+    id: z.string().nullish(), // valeur, undefined (champ peut être omis), null
 
     // firstName : minimum 3 caractères, non null, avec refine pour vérifier non null
 
@@ -85,8 +87,13 @@ export const UserSchema = z
   //   path: ["nom_champ"],
   // });
 
+  // https://zod.dev/api#refinements
+
   .superRefine((val, ctx) => {});
 
 // 🟣 Étape 5 – Export des types
-// - Exporter le type User depuis le schéma
+// - Exporter le type User depuis le schéma (hint : documenation => Defining schemas => objects) // https://zod.dev/api#objects
+
 // - Définir un type AuthUser qui hérite de User avec une propriété defaultCultureKey facultative
+// doc : https://www.typescripttutorial.net/typescript-tutorial/typescript-intersection-types/
+// https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html
