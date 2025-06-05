@@ -1,4 +1,4 @@
-# 🎓 Formation interne – ASK avec Material UI, Vite + TypeScript, Zod, React Hook Form
+# 🎓 Atelier interne – ASK avec Material UI, Vite + TypeScript, Zod, React Hook Form
 
 Ce training détaille les étapes nécessaires pour installer et lancer localement un projet utilisant **Material UI**, **Vite** et **TypeScript**, avec notre nouveau gestionnaire de paquets préféré : **pnpm**.
 
