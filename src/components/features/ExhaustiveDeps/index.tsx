@@ -6,16 +6,31 @@ import AnimatedOverlay from "../../ui/Animated";
 import ControlledCheckbox from "../../ui/forms/ControlledCheckbox";
 import ControlledTextField from "../../ui/forms/ControlledTextField";
 import FormSubmitButton from "../../ui/forms/FormSubmitButton";
-import useYupForm from "./form";
+import useDecompositionForm from "./form";
+import { useCallback, useEffect } from "react";
 
-function YupForm({ userId = null }) {
-  const { form, onSubmit } = useYupForm(userId);
+function ExhaustiveDepsForm({ userId = "134" }) {
+  const { form, onSubmit } = useDecompositionForm(userId);
   const isPasswordEditable = useWatch({
     control: form.control,
     name: "isPasswordEditable",
   });
   const { handleSubmit } = form;
   const isCreation = isEmpty(userId);
+
+  const doSomethingOutside = () => {
+    console.log("Fonction stable déclarée en dehors du composant");
+  };
+
+  const doSometingWithCallback = useCallback(() => {
+    console.log("Fonction stable déclarée avec useCallback");
+  }, []);
+
+  useEffect(() => {
+    doSomethingOutside();
+    form.reset({});
+  }, [form, doSomethingOutside]);
+  // ON VA L'ENLEVER POUR NOUS FACILITER LA VIE MAIS NON
 
   return (
     <AnimatedOverlay>
@@ -97,4 +112,4 @@ function YupForm({ userId = null }) {
   );
 }
 
-export default YupForm;
+export default ExhaustiveDepsForm;

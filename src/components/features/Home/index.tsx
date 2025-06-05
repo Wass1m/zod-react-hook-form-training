@@ -12,10 +12,17 @@ import YupForm from "../YupForm";
 import ReRendering from "../ReRendering";
 import ZodForm from "../ZodForm";
 import DecompositionForm from "../Decomposition";
+import ExhaustiveDepsForm from "../ExhaustiveDeps";
 
 const drawerWidth = 240;
 
-const sections = ["Yup", "Zod", "Re Rendering", "Decomposition"];
+const sections = [
+  "Yup",
+  "Zod",
+  "Re Rendering",
+  "Decomposition",
+  "ExhaustiveDeps",
+];
 
 const Home = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -34,6 +41,8 @@ const Home = () => {
         return <ReRendering />;
       case "Decomposition":
         return <DecompositionForm />;
+      case "ExhaustiveDeps":
+        return <ExhaustiveDepsForm />;
       default:
         return null;
     }

@@ -73,6 +73,18 @@ export const UserSchema = z
   //   - password est requis
   //   - password doit faire minimum 3 caractères
   //   - password doit être égal à passwordCopy
+
+  // addIssue permet d’ajouter une erreur personnalisée
+
+  // ctx.addIssue({
+  //   code: z.ZodIssueCode.too_small,
+  //   minimum: 3,
+  //   type: "string",
+  //   inclusive: true,
+  //   message: "Minimum 3 caractères",
+  //   path: ["nom_champ"],
+  // });
+
   .superRefine((val, ctx) => {});
 
 // 🟣 Étape 5 – Export des types
